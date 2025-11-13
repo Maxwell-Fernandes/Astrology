@@ -1,0 +1,75 @@
+<svg width="480" height="480" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define the vintage paper texture gradient -->
+  <defs>
+    <linearGradient id="paperGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f4e8d0;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#e8d7b8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d9c7a8;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Noise filter for texture -->
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" />
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend mode="multiply" in="SourceGraphic"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="480" height="480" fill="url(#paperGradient)"/>
+  <rect width="480" height="480" fill="url(#noise)" opacity="0.15"/>
+
+  <!-- Outer decorative border -->
+  <rect x="5" y="5" width="470" height="470" fill="none" stroke="#8b4513" stroke-width="8"/>
+  <rect x="10" y="10" width="460" height="460" fill="none" stroke="#d2691e" stroke-width="2"/>
+
+  <!-- Grid lines -->
+  <!-- Vertical lines -->
+  <line x1="130" y1="20" x2="130" y2="130" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+  <line x1="130" y1="350" x2="130" y2="460" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+
+  <line x1="250" y1="20" x2="250" y2="130" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+  <line x1="250" y1="350" x2="250" y2="460" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+
+  <line x1="370" y1="20" x2="370" y2="460" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Horizontal lines -->
+  <line x1="20" y1="130" x2="460" y2="130" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+
+  <line x1="20" y1="250" x2="130" y2="250" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+  <line x1="370" y1="250" x2="460" y2="250" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+
+  <line x1="20" y1="350" x2="460" y2="350" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Center merged cell border -->
+  <rect x="130" y="130" width="240" height="220" fill="none" stroke="#b8956a" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Cell numbers in red -->
+  <text x="30" y="35" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">12</text>
+  <text x="150" y="35" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">1</text>
+  <text x="270" y="35" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">2</text>
+  <text x="390" y="35" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">3</text>
+
+  <text x="30" y="155" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">11</text>
+  <text x="390" y="155" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">4</text>
+
+  <text x="30" y="275" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">10</text>
+  <text x="390" y="275" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">5</text>
+
+  <text x="30" y="395" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">9</text>
+  <text x="150" y="395" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">8</text>
+  <text x="270" y="395" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">7</text>
+  <text x="390" y="395" font-family="Arial, sans-serif" font-size="14" fill="#c73e1d" font-weight="bold">6</text>
+
+  <!-- Additional aging effects -->
+  <rect x="0" y="0" width="480" height="480" fill="#8b7355" opacity="0.05"/>
+
+  <!-- Subtle vignette effect -->
+  <defs>
+    <radialGradient id="vignette">
+      <stop offset="60%" style="stop-color:#ffffff;stop-opacity:0" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0.2" />
+    </radialGradient>
+  </defs>
+  <rect width="480" height="480" fill="url(#vignette)"/>
+</svg>
