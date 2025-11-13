@@ -525,14 +525,6 @@ refactor: Simplify chart data parsing
 test: Add unit tests for validators
 ```
 
-## License
-
-[Specify license here]
-
-## Contact
-
-[Add contact information or repository links]
-
 ---
 
 **Happy Coding!** 🌟
