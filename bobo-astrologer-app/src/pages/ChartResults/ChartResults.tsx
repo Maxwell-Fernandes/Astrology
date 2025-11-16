@@ -1,40 +1,14 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download } from 'lucide-react';
 import { Button, Card, Spinner } from '@/components/atoms';
 import { ChartWheel } from '@/components/organisms/ChartWheel';
 import { useChartStore } from '@/store/chartStore';
 import { formatDegree } from '@/utils/formatters';
-import { exportChartToPDF } from '@/utils/pdfExport';
-import toast from 'react-hot-toast';
 
 export const ChartResults = () => {
   const navigate = useNavigate();
   const currentChart = useChartStore((state) => state.currentChart);
   const isLoading = useChartStore((state) => state.isLoading);
-  const [isExporting, setIsExporting] = useState(false);
-
-  const handleExport = async () => {
-    if (!currentChart) return;
-
-    setIsExporting(true);
-    toast.loading('Generating PDF...', { id: 'pdf-export' });
-
-    try {
-      const result = await exportChartToPDF(currentChart);
-
-      if (result.success) {
-        toast.success(`PDF exported successfully: ${result.fileName}`, { id: 'pdf-export' });
-      } else {
-        toast.error('Failed to export PDF', { id: 'pdf-export' });
-      }
-    } catch (error) {
-      console.error('Export error:', error);
-      toast.error('An error occurred while exporting PDF', { id: 'pdf-export' });
-    } finally {
-      setIsExporting(false);
-    }
-  };
 
   if (isLoading) {
     return (
@@ -87,18 +61,14 @@ export const ChartResults = () => {
               {currentChart.type === 'natal' ? 'Natal Chart' : 'Horary Chart'}
             </p>
           </div>
-          <Button
-            variant="secondary"
-            onClick={handleExport}
-            disabled={isExporting}
-          >
+          <Button variant="secondary">
             <Download className="w-4 h-4" />
-            {isExporting ? 'Exporting...' : 'Export PDF'}
+            Export
           </Button>
         </div>
 
         {/* Chart Wheel */}
-        <Card className="mb-8 chart-wheel-container">
+        <Card className="mb-8">
           <h2 className="text-2xl font-serif font-semibold text-white mb-6">
             Birth Chart
           </h2>
@@ -404,7 +374,6 @@ export const ChartResults = () => {
                     >
                       <td className="py-3 px-4 text-white font-medium">
                         House {house}
-                      </td>
                       <td className="py-3 px-4 text-white/70">
                         {Array.isArray(planets) ? planets.join(', ') : String(planets)}
                       </td>
