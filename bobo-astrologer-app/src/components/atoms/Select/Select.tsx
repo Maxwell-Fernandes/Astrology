@@ -14,15 +14,15 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <select
           ref={ref}
           className={clsx(
-            'appearance-none px-4 py-3 pr-10 rounded-lg',
-            'bg-surface-elevated border border-border-subtle',
-            'text-white',
+            'appearance-none px-4 py-3 pr-10 rounded-full',
+            'bg-white border border-gray-300',
+            'text-gray-800',
             'transition-all duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-accent-purple focus:border-transparent',
-            'disabled:opacity-50 disabled:cursor-not-allowed',
-            '[&>option]:bg-surface-elevated [&>option]:text-white [&>option]:py-2',
+            'focus:outline-none focus:border-[#FFD700] focus:ring-2 focus:ring-[#FFD700]/20',
+            'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100',
+            '[&>option]:bg-white [&>option]:text-gray-800 [&>option]:py-2',
             {
-              'border-red-500 focus:ring-red-500': error,
+              'border-red-200 focus:border-red-300 focus:ring-red-200/20': error,
               'w-full': fullWidth,
             },
             className
@@ -31,7 +31,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         >
           {children}
         </select>
-        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60 pointer-events-none" />
+        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
       </div>
     );
   }
