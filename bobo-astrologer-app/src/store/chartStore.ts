@@ -87,6 +87,7 @@ export const useChartStore = create<ChartState>()(
     {
       name: 'bobo-chart-storage',
       partialize: (state) => ({
+        currentChart: state.currentChart,
         chartHistory: state.chartHistory,
       }),
     }

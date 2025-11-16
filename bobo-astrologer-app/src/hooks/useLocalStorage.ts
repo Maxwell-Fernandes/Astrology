@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useState, useEffect } from 'react';
-=======
 import { useState } from 'react';
->>>>>>> 16976e908eb28ab3bdca724c24c827e20b6db851
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
   const [storedValue, setStoredValue] = useState<T>(() => {

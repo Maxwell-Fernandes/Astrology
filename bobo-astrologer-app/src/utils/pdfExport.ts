@@ -131,15 +131,15 @@ export const exportChartToPDF = async (chartData: ChartData) => {
       },
       {
         label: 'Ayanamsa:',
-        value: chartData.input.ayanamsa,
+        value: chartData.input.ayanamsa || 'Lahiri',
       },
       {
         label: 'House System:',
-        value: chartData.input.house_system,
+        value: chartData.input.house_system || 'Equal',
       },
     ];
 
-    if (chartData.type === 'horary' && chartData.input.horary_number) {
+    if (chartData.type === 'horary' && 'horary_number' in chartData.input) {
       birthDetails.push({
         label: 'Horary Number:',
         value: chartData.input.horary_number.toString(),

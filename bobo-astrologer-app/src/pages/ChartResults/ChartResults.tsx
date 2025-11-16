@@ -72,14 +72,6 @@ export const ChartResults = () => {
         </motion.div>
 
         {/* Chart Wheel */}
-<<<<<<< HEAD
-        <Card className="mb-8">
-          <h2 className="text-2xl font-serif font-semibold text-white mb-6">
-            Birth Chart
-          </h2>
-          <ChartWheel planets={data.planets_data} houses={data.houses_data} />
-        </Card>
-=======
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -92,7 +84,6 @@ export const ChartResults = () => {
             <ChartWheel planets={data.planets_data} houses={data.houses_data} />
           </Card>
         </motion.div>
->>>>>>> 16976e908eb28ab3bdca724c24c827e20b6db851
 
         {/* Planets Table */}
         <motion.div
@@ -257,94 +248,6 @@ export const ChartResults = () => {
                         Duration (Years)
                       </th>
                     </tr>
-<<<<<<< HEAD
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </Card>
-        )}
-
-        {/* Planet Significators (KP Astrology) */}
-        {data.planet_significators && (
-          <Card className="mb-8">
-            <h2 className="text-2xl font-serif font-semibold text-white mb-6">
-              Planet Significators (KP System)
-            </h2>
-            <p className="text-white/60 mb-4 text-sm">
-              Houses signified by each planet according to Krishnamurti Paddhati
-            </p>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="border-b border-border-subtle">
-                  <tr>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      Planet
-                    </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      Signifies Houses
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border-subtle">
-                  {Object.entries(data.planet_significators).map(([planet, houses]: [string, any]) => (
-                    <tr
-                      key={planet}
-                      className="hover:bg-surface-hover transition-colors"
-                    >
-                      <td className="py-3 px-4 text-white font-medium">
-                        {planet}
-                      </td>
-                      <td className="py-3 px-4 text-white/70">
-                        {Array.isArray(houses) ? houses.join(', ') : String(houses)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Card>
-        )}
-
-        {/* House Significators (KP Astrology) */}
-        {data.house_significators && (
-          <Card className="mb-8">
-            <h2 className="text-2xl font-serif font-semibold text-white mb-6">
-              House Significators (KP System)
-            </h2>
-            <p className="text-white/60 mb-4 text-sm">
-              Planets signifying each house according to Krishnamurti Paddhati
-            </p>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="border-b border-border-subtle">
-                  <tr>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      House
-                    </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      Significator Planets
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border-subtle">
-                  {Object.entries(data.house_significators).map(([house, planets]: [string, any]) => (
-                    <tr
-                      key={house}
-                      className="hover:bg-surface-hover transition-colors"
-                    >
-                      <td className="py-3 px-4 text-white font-medium">
-                        House {house}
-                      <td className="py-3 px-4 text-white/70">
-                        {Array.isArray(planets) ? planets.join(', ') : String(planets)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Card>
-=======
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {data.vimshottari_dasa_table.map((dasa: any, index: number) => (
@@ -368,7 +271,6 @@ export const ChartResults = () => {
               </div>
             </Card>
           </motion.div>
->>>>>>> 16976e908eb28ab3bdca724c24c827e20b6db851
         )}
       </div>
     </div>

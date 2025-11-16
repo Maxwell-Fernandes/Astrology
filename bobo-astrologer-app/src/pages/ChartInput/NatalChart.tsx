@@ -44,9 +44,13 @@ export const NatalChart = () => {
   const onSubmit = async (data: ChartInputFormData) => {
     try {
       await generateNatalChart(data);
-      if (!error) {
+      // Check the error state from the store after the async call completes
+      const currentError = useChartStore.getState().error;
+      if (!currentError) {
         toast.success('Chart generated successfully!');
         navigate('/chart/results');
+      } else {
+        toast.error(currentError);
       }
     } catch (err) {
       toast.error('Failed to generate chart. Please try again.');

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const chartInputSchema = z.object({
+  name: z.string().optional(),
   year: z.number().int().min(1800).max(2100),
   month: z.number().int().min(1).max(12),
   day: z.number().int().min(1).max(31),
@@ -10,8 +11,9 @@ export const chartInputSchema = z.object({
   utc: z.string().regex(/^[+-]\d{2}:\d{2}$/),
   latitude: z.number().min(-90).max(90),
   longitude: z.number().min(-180).max(180),
-  ayanamsa: z.string().optional().default('Lahiri'),
-  house_system: z.string().optional().default('Equal'),
+  place_of_birth: z.string().optional(),
+  ayanamsa: z.string().optional(),
+  house_system: z.string().optional(),
   return_style: z.string().optional().nullable(),
 });
 

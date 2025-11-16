@@ -1,5 +1,6 @@
 // Define all API request/response interfaces
 export interface ChartInput {
+  name?: string;
   year: number;
   month: number;
   day: number;
@@ -9,6 +10,7 @@ export interface ChartInput {
   utc: string;
   latitude: number;
   longitude: number;
+  place_of_birth?: string;
   ayanamsa?: string;
   house_system?: string;
   return_style?: string | null;
