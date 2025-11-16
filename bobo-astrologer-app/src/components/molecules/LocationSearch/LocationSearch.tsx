@@ -3,6 +3,18 @@ import { MapPin, Loader2 } from 'lucide-react';
 import { Input } from '@/components/atoms';
 import clsx from 'clsx';
 
+interface NominatimResult {
+  place_id: number;
+  lat: string;
+  lon: string;
+  display_name: string;
+  address?: {
+    city?: string;
+    state?: string;
+    country?: string;
+  };
+}
+
 interface LocationSearchProps {
   onLocationSelect: (location: { lat: number; lng: number; name: string }) => void;
   error?: string;
@@ -11,7 +23,7 @@ interface LocationSearchProps {
 
 export const LocationSearch = ({ onLocationSelect, error }: LocationSearchProps) => {
   const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [suggestions, setSuggestions] = useState<NominatimResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState('');
@@ -57,7 +69,7 @@ export const LocationSearch = ({ onLocationSelect, error }: LocationSearchProps)
     };
   }, [query]);
 
-  const handleSelectLocation = (location: any) => {
+  const handleSelectLocation = (location: NominatimResult) => {
     // Get a shorter, cleaner display name
     const parts = location.display_name.split(',');
     const shortName = parts.length > 2

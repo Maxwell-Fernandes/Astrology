@@ -10,7 +10,7 @@ export const api = {
     return apiClient.post('/get_all_horary_data', input);
   },
 
-  healthCheck: async (): Promise<any> => {
+  healthCheck: async (): Promise<{ message: string; status: string }> => {
     return apiClient.get('/');
   },
 };

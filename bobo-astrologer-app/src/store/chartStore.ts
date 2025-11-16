@@ -45,11 +45,14 @@ export const useChartStore = create<ChartState>()(
             ].slice(0, 50),
             isLoading: false,
           });
-        } catch (error: any) {
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'Failed to generate natal chart';
+          console.error('Error generating natal chart:', error);
           set({
-            error: error.message,
+            error: errorMessage,
             isLoading: false,
           });
+          throw error;
         }
       },
 
@@ -73,11 +76,14 @@ export const useChartStore = create<ChartState>()(
             ].slice(0, 50),
             isLoading: false,
           });
-        } catch (error: any) {
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'Failed to generate horary chart';
+          console.error('Error generating horary chart:', error);
           set({
-            error: error.message,
+            error: errorMessage,
             isLoading: false,
           });
+          throw error;
         }
       },
 

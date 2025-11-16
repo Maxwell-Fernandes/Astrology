@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { type UseFormRegisterReturn } from 'react-hook-form';
 import { Input, Label } from '@/components/atoms';
 
 export interface FormFieldProps {
@@ -8,7 +9,7 @@ export interface FormFieldProps {
   placeholder?: string;
   error?: string;
   required?: boolean;
-  register?: any;
+  register?: UseFormRegisterReturn;
   children?: ReactNode;
 }
 
@@ -22,6 +23,8 @@ export const FormField = ({
   register,
   children,
 }: FormFieldProps) => {
+  const errorId = error ? `${name}-error` : undefined;
+
   return (
     <div className="space-y-2">
       <Label htmlFor={name} required={required}>
@@ -33,12 +36,15 @@ export const FormField = ({
           type={type}
           placeholder={placeholder}
           error={!!error}
+          aria-describedby={errorId}
           fullWidth
           {...register}
         />
       )}
       {error && (
-        <p className="text-sm text-red-600 animate-fade-in">{error}</p>
+        <p id={errorId} className="text-sm text-red-600 animate-fade-in" role="alert">
+          {error}
+        </p>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import type { ChartData } from '@/types/chart';
+import type { PlanetData, HoraryChartInput } from '@/api/types';
 
 // Style Guide Colors (converted to RGB)
 const COLORS = {
@@ -60,7 +61,7 @@ export const exportChartToPDF = async (chartData: ChartData) => {
     yPosition += 3;
 
     // Personal Information Section (if name exists)
-    if (chartData.input.name) {
+    if (chartData.input?.name) {
       checkAddPage(30);
 
       // Section header with accent color
@@ -80,17 +81,17 @@ export const exportChartToPDF = async (chartData: ChartData) => {
       pdf.text('Name:', margin + 5, yPosition);
       pdf.setTextColor(...COLORS.textPrimary);
       pdf.setFont('helvetica', 'normal');
-      pdf.text(chartData.input.name, margin + 25, yPosition);
+      pdf.text(chartData.input?.name, margin + 25, yPosition);
       yPosition += 6;
 
       // Place of Birth (if available)
-      if (chartData.input.place_of_birth) {
+      if (chartData.input?.place_of_birth) {
         pdf.setTextColor(...COLORS.accentGold);
         pdf.setFont('helvetica', 'bold');
         pdf.text('Place of Birth:', margin + 5, yPosition);
         pdf.setTextColor(...COLORS.textPrimary);
         pdf.setFont('helvetica', 'normal');
-        pdf.text(chartData.input.place_of_birth, margin + 35, yPosition);
+        pdf.text(chartData.input?.place_of_birth, margin + 35, yPosition);
         yPosition += 6;
       }
 
@@ -115,34 +116,35 @@ export const exportChartToPDF = async (chartData: ChartData) => {
     const birthDetails = [
       {
         label: 'Date:',
-        value: `${String(chartData.input.day).padStart(2, '0')}/${String(chartData.input.month).padStart(2, '0')}/${chartData.input.year}`,
+        value: `${String(chartData.input?.day).padStart(2, '0')}/${String(chartData.input?.month).padStart(2, '0')}/${chartData.input?.year}`,
       },
       {
         label: 'Time:',
-        value: `${String(chartData.input.hour).padStart(2, '0')}:${String(chartData.input.minute).padStart(2, '0')}:${String(chartData.input.second).padStart(2, '0')}`,
+        value: `${String(chartData.input?.hour).padStart(2, '0')}:${String(chartData.input?.minute).padStart(2, '0')}:${String(chartData.input?.second).padStart(2, '0')}`,
       },
       {
         label: 'Timezone:',
-        value: chartData.input.utc,
+        value: chartData.input?.utc,
       },
       {
         label: 'Coordinates:',
-        value: `${chartData.input.latitude.toFixed(4)}°, ${chartData.input.longitude.toFixed(4)}°`,
+        value: `${chartData.input?.latitude.toFixed(4)}°, ${chartData.input?.longitude.toFixed(4)}°`,
       },
       {
         label: 'Ayanamsa:',
-        value: chartData.input.ayanamsa,
+        value: chartData.input?.ayanamsa,
       },
       {
         label: 'House System:',
-        value: chartData.input.house_system,
+        value: chartData.input?.house_system,
       },
     ];
 
-    if (chartData.type === 'horary' && chartData.input.horary_number) {
+    if (chartData.type === 'horary' && chartData.input && 'horary_number' in chartData.input) {
+      const horaryInput = chartData.input as HoraryChartInput;
       birthDetails.push({
         label: 'Horary Number:',
-        value: chartData.input.horary_number.toString(),
+        value: horaryInput.horary_number.toString(),
       });
     }
 
@@ -153,7 +155,7 @@ export const exportChartToPDF = async (chartData: ChartData) => {
       pdf.text(detail.label, margin + 5, yPosition);
       pdf.setTextColor(...COLORS.textPrimary);
       pdf.setFont('helvetica', 'normal');
-      pdf.text(detail.value, margin + 35, yPosition);
+      pdf.text(detail.value || '', margin + 35, yPosition);
       yPosition += 6;
     });
 
@@ -241,7 +243,7 @@ export const exportChartToPDF = async (chartData: ChartData) => {
       pdf.text('PLANETARY POSITIONS', margin, yPosition);
       yPosition += 10;
 
-      const planetsTableData = chartData.data.planets_data.map((planet: any) => [
+      const planetsTableData = chartData.data.planets_data.map((planet: PlanetData) => [
         planet.name || 'N/A',
         planet.sign || 'N/A',
         planet.rasi_lord || 'N/A',
@@ -433,7 +435,7 @@ export const exportChartToPDF = async (chartData: ChartData) => {
     pdf.text(footerText, (pageWidth - footerWidth) / 2, pageHeight - 10);
 
     // Save the PDF
-    const fileName = `${chartData.type}_chart_${chartData.input.name ? chartData.input.name.replace(/\s+/g, '_') : 'chart'}_${new Date().toISOString().split('T')[0]}.pdf`;
+    const fileName = `${chartData.type}_chart_${chartData.input?.name ? chartData.input?.name.replace(/\s+/g, '_') : 'chart'}_${new Date().toISOString().split('T')[0]}.pdf`;
     pdf.save(fileName);
 
     return { success: true, fileName };

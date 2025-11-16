@@ -1,16 +1,18 @@
 // Chart-related type definitions
+import type { ChartResponse, ChartInput, HoraryChartInput } from '@/api/types';
+
 export interface ChartData {
   id: string;
   type: 'natal' | 'horary';
-  data: any;
-  input?: any;
+  data: ChartResponse;
+  input?: ChartInput | HoraryChartInput;
   createdAt: string | Date;
 }
 
 export interface ChartHistoryItem {
   id: string;
   type: 'natal' | 'horary';
-  input?: any;
+  input?: ChartInput | HoraryChartInput;
   createdAt: string | Date;
 }
 

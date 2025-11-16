@@ -23,6 +23,8 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <motion.button
+      aria-busy={isLoading}
+      aria-disabled={disabled || isLoading}
       whileHover={!disabled && !isLoading ? { scale: 1.05 } : undefined}
       whileTap={!disabled && !isLoading ? { scale: 0.95 } : undefined}
       className={clsx(

@@ -49,7 +49,9 @@ export const NatalChart = () => {
         navigate('/chart/results');
       }
     } catch (err) {
-      toast.error('Failed to generate chart. Please try again.');
+      console.error('Error generating chart:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to generate chart. Please try again.';
+      toast.error(errorMessage);
     }
   };
 

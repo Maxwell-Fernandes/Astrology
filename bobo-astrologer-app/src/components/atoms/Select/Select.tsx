@@ -13,6 +13,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       <div className={clsx('relative', { 'w-full': fullWidth })}>
         <select
           ref={ref}
+          aria-invalid={error}
           className={clsx(
             'appearance-none px-4 py-3 pr-10 rounded-full',
             'bg-white border border-gray-300',

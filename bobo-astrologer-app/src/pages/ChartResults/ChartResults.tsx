@@ -8,6 +8,7 @@ import { useChartStore } from '@/store/chartStore';
 import { formatDegree } from '@/utils/formatters';
 import { exportChartToPDF } from '@/utils/pdfExport';
 import toast from 'react-hot-toast';
+import type { PlanetData, HouseData, DasaPeriod } from '@/api/types';
 
 export const ChartResults = () => {
   const navigate = useNavigate();
@@ -156,7 +157,7 @@ export const ChartResults = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {data.planets_data.map((planet: any, index: number) => (
+                  {data.planets_data.map((planet: PlanetData, index: number) => (
                     <motion.tr
                       key={planet.name}
                       initial={{ opacity: 0, y: 10 }}
@@ -223,7 +224,7 @@ export const ChartResults = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {data.houses_data.map((house: any, index: number) => (
+                  {data.houses_data.map((house: HouseData, index: number) => (
                     <motion.tr
                       key={house.house_number}
                       initial={{ opacity: 0, y: 10 }}
@@ -280,7 +281,7 @@ export const ChartResults = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    {data.vimshottari_dasa_table.map((dasa: any, index: number) => (
+                    {data.vimshottari_dasa_table.map((dasa: DasaPeriod, index: number) => (
                       <motion.tr
                         key={`${dasa.planet}-${index}`}
                         initial={{ opacity: 0, y: 10 }}

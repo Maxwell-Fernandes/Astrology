@@ -6,9 +6,16 @@ interface Planet {
   retrograde: boolean;
 }
 
+interface House {
+  house_number: number;
+  sign: string;
+  cusp_degree?: number;
+  lord?: string;
+}
+
 interface ChartWheelProps {
   planets: Planet[];
-  houses: any[];
+  houses: House[];
 }
 
 export const ChartWheel = ({ planets, houses }: ChartWheelProps) => {

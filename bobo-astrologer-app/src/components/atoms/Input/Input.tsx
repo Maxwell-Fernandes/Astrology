@@ -11,6 +11,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <input
         ref={ref}
+        aria-invalid={error}
         className={clsx(
           'px-4 py-3 rounded-full',
           'bg-white border border-gray-300',

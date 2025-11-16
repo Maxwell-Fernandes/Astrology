@@ -1,5 +1,7 @@
 // Define all API request/response interfaces
 export interface ChartInput {
+  name?: string;
+  place_of_birth?: string;
   year: number;
   month: number;
   day: number;
@@ -26,6 +28,9 @@ export interface PlanetData {
   house: number;
   retrograde: boolean;
   velocity: number;
+  rasi_lord?: string;
+  nakshatra?: string;
+  nakshatra_lord?: string;
 }
 
 export interface HouseData {
@@ -36,13 +41,41 @@ export interface HouseData {
   lord: string;
 }
 
+export interface Significator {
+  A: string[];
+  B: string[];
+  C: string[];
+  D: string[];
+}
+
+export interface PlanetaryAspect {
+  planet1: string;
+  planet2: string;
+  aspect_type: string;
+  angle: number;
+  orb: number;
+}
+
+export interface DasaPeriod {
+  planet: string;
+  start_date: string;
+  end_date: string;
+  level: number;
+  duration_years?: number;
+  sub_periods?: DasaPeriod[];
+}
+
+export interface ConsolidatedChartData {
+  [key: string]: unknown;
+}
+
 export interface ChartResponse {
   planets_data: PlanetData[];
   houses_data: HouseData[];
-  planet_significators: Record<string, any>;
-  house_significators: Record<string, any>;
-  planetary_aspects: any[];
-  vimshottari_dasa_table: any[];
-  consolidated_chart_data: any;
+  planet_significators: Record<string, Significator>;
+  house_significators: Record<string, Significator>;
+  planetary_aspects: PlanetaryAspect[];
+  vimshottari_dasa_table: DasaPeriod[];
+  consolidated_chart_data: ConsolidatedChartData;
   matched_time?: string;
 }
