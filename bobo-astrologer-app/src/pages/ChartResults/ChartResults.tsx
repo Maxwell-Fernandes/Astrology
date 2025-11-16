@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowLeft, Download } from 'lucide-react';
 import { Button, Card, Spinner } from '@/components/atoms';
 import { ChartWheel } from '@/components/organisms/ChartWheel';
@@ -12,10 +13,10 @@ export const ChartResults = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <Spinner size="lg" />
-          <p className="text-white/70 mt-4">Generating your chart...</p>
+          <p className="text-gray-600 mt-4">Generating your chart...</p>
         </div>
       </div>
     );
@@ -23,10 +24,10 @@ export const ChartResults = () => {
 
   if (!currentChart) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-serif text-white mb-4">No Chart Data</h2>
-          <p className="text-white/70 mb-6">Generate a chart to see results here</p>
+          <h2 className="text-2xl text-gray-900 mb-4">No Chart Data</h2>
+          <p className="text-gray-600 mb-6">Generate a chart to see results here</p>
           <Button onClick={() => navigate('/natal-chart')}>
             Generate Chart
           </Button>
@@ -38,12 +39,15 @@ export const ChartResults = () => {
   const { data } = currentChart;
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <div className="stars" />
-
-      <div className="relative z-10 container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8 sm:py-12">
         {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+        >
           <div>
             <Button
               variant="ghost"
@@ -54,10 +58,10 @@ export const ChartResults = () => {
               <ArrowLeft className="w-4 h-4" />
               Back to Home
             </Button>
-            <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white mb-3">
+            <h1 className="text-3xl sm:text-4xl text-gray-900 mb-2">
               Chart Results
             </h1>
-            <p className="text-lg text-white/60">
+            <p className="text-lg text-gray-600">
               {currentChart.type === 'natal' ? 'Natal Chart' : 'Horary Chart'}
             </p>
           </div>
@@ -65,238 +69,195 @@ export const ChartResults = () => {
             <Download className="w-4 h-4" />
             Export
           </Button>
-        </div>
+        </motion.div>
 
         {/* Chart Wheel */}
+<<<<<<< HEAD
         <Card className="mb-8">
           <h2 className="text-2xl font-serif font-semibold text-white mb-6">
             Birth Chart
           </h2>
           <ChartWheel planets={data.planets_data} houses={data.houses_data} />
         </Card>
+=======
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <Card className="mb-8 chart-wheel-container">
+            <h2 className="text-2xl text-gray-900 mb-6">
+              Birth Chart
+            </h2>
+            <ChartWheel planets={data.planets_data} houses={data.houses_data} />
+          </Card>
+        </motion.div>
+>>>>>>> 16976e908eb28ab3bdca724c24c827e20b6db851
 
         {/* Planets Table */}
-        <Card className="mb-8">
-          <h2 className="text-2xl font-serif font-semibold text-white mb-6">
-            Planetary Positions
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-border-subtle">
-                <tr>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Planet
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Sign
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Sign Lord
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Degree
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Nakshatra
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Nakshatra Lord
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    House
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border-subtle">
-                {data.planets_data.map((planet) => (
-                  <tr
-                    key={planet.name}
-                    className="hover:bg-surface-hover transition-colors"
-                  >
-                    <td className="py-3 px-4 text-white font-medium">
-                      {planet.name}
-                    </td>
-                    <td className="py-3 px-4 text-white/70">{planet.sign}</td>
-                    <td className="py-3 px-4 text-accent-gold">{planet.rasi_lord}</td>
-                    <td className="py-3 px-4 text-white/70 font-mono">
-                      {formatDegree(planet.sign_degree)}
-                    </td>
-                    <td className="py-3 px-4 text-white/70">{planet.nakshatra}</td>
-                    <td className="py-3 px-4 text-accent-gold">{planet.nakshatra_lord}</td>
-                    <td className="py-3 px-4 text-white/70">{planet.house}</td>
-                    <td className="py-3 px-4">
-                      {planet.retrograde ? (
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-500/20 text-orange-400 border border-orange-500/30">
-                          Retrograde
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">
-                          Direct
-                        </span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
-
-        {/* Houses Table */}
-        <Card className="mb-8">
-          <h2 className="text-2xl font-serif font-semibold text-white mb-6">
-            House Cusps
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="border-b border-border-subtle">
-                <tr>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    House
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Sign
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Cusp Degree
-                  </th>
-                  <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                    Lord
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border-subtle">
-                {data.houses_data.map((house) => (
-                  <tr
-                    key={house.house_number}
-                    className="hover:bg-surface-hover transition-colors"
-                  >
-                    <td className="py-3 px-4 text-white font-medium">
-                      {house.house_number}
-                    </td>
-                    <td className="py-3 px-4 text-white/70">{house.sign}</td>
-                    <td className="py-3 px-4 text-white/70 font-mono">
-                      {formatDegree(house.cusp_degree)}
-                    </td>
-                    <td className="py-3 px-4 text-white/70">{house.lord}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
-
-        {/* Vimshottari Dasa Table */}
-        {data.vimshottari_dasa_table && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <Card className="mb-8">
-            <h2 className="text-2xl font-serif font-semibold text-white mb-6">
-              Vimshottari Dasa Periods
+            <h2 className="text-2xl text-gray-900 mb-6">
+              Planetary Positions
             </h2>
-            <p className="text-white/60 mb-4 text-sm">
-              Planetary periods showing when each planet's influence is most active in your life
-            </p>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="border-b border-border-subtle">
+                <thead className="border-b-2 border-gray-200 bg-gray-50">
                   <tr>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
                       Planet
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      Start Date
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      Sign
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      End Date
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      Sign Lord
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      Duration (Years)
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      Degree
+                    </th>
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      Nakshatra
+                    </th>
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      Nakshatra Lord
+                    </th>
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      House
+                    </th>
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      Status
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-border-subtle">
-                  {Object.entries(data.vimshottari_dasa_table).map(([planet, period]: [string, any]) => (
-                    <tr
-                      key={planet}
-                      className="hover:bg-surface-hover transition-colors"
+                <tbody className="divide-y divide-gray-100">
+                  {data.planets_data.map((planet: any, index: number) => (
+                    <motion.tr
+                      key={planet.name}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+                      className="hover:bg-gray-50 transition-colors"
                     >
-                      <td className="py-3 px-4 text-white font-medium">
-                        {planet}
+                      <td className="py-4 px-4 sm:px-6 text-gray-900 font-medium">
+                        {planet.name}
                       </td>
-                      <td className="py-3 px-4 text-white/70">
-                        {period.start_date || 'N/A'}
+                      <td className="py-4 px-4 sm:px-6 text-gray-600">{planet.sign}</td>
+                      <td className="py-4 px-4 sm:px-6 text-[#FFD700]">{planet.rasi_lord}</td>
+                      <td className="py-4 px-4 sm:px-6 text-gray-600 font-mono text-sm">
+                        {formatDegree(planet.sign_degree)}
                       </td>
-                      <td className="py-3 px-4 text-white/70">
-                        {period.end_date || 'N/A'}
+                      <td className="py-4 px-4 sm:px-6 text-gray-600">{planet.nakshatra}</td>
+                      <td className="py-4 px-4 sm:px-6 text-[#FFD700]">{planet.nakshatra_lord}</td>
+                      <td className="py-4 px-4 sm:px-6 text-gray-600">{planet.house}</td>
+                      <td className="py-4 px-4 sm:px-6">
+                        {planet.retrograde ? (
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-50 text-orange-600 border border-orange-200">
+                            Retrograde
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-600 border border-green-200">
+                            Direct
+                          </span>
+                        )}
                       </td>
-                      <td className="py-3 px-4 text-white/70">
-                        {period.duration || period.years || 'N/A'}
-                      </td>
-                    </tr>
+                    </motion.tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </Card>
-        )}
+        </motion.div>
 
-        {/* Planetary Aspects */}
-        {data.planetary_aspects && (
+        {/* Houses Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
           <Card className="mb-8">
-            <h2 className="text-2xl font-serif font-semibold text-white mb-6">
-              Planetary Aspects
+            <h2 className="text-2xl text-gray-900 mb-6">
+              House Cusps
             </h2>
-            <p className="text-white/60 mb-4 text-sm">
-              Relationships and aspects between planets in your chart
-            </p>
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="border-b border-border-subtle">
+                <thead className="border-b-2 border-gray-200 bg-gray-50">
                   <tr>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      Planet 1
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      House
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      Aspect Type
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      Sign
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      Planet 2
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      Cusp Degree
                     </th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-white/90 uppercase tracking-wider">
-                      Orb
+                    <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                      Lord
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-border-subtle">
-                  {Array.isArray(data.planetary_aspects) && data.planetary_aspects.length > 0 ? (
-                    data.planetary_aspects.map((aspect: any, idx: number) => (
-                      <tr
-                        key={idx}
-                        className="hover:bg-surface-hover transition-colors"
-                      >
-                        <td className="py-3 px-4 text-white font-medium">
-                          {aspect.P1 || aspect.planet1 || aspect.from_planet}
-                        </td>
-                        <td className="py-3 px-4 text-accent-gold">
-                          {aspect.AspectType || aspect.aspect_type || aspect.aspect}
-                        </td>
-                        <td className="py-3 px-4 text-white font-medium">
-                          {aspect.P2 || aspect.planet2 || aspect.to_planet}
-                        </td>
-                        <td className="py-3 px-4 text-white/70">
-                          {aspect.AspectOrb ? `${Number(aspect.AspectOrb).toFixed(2)}°` :
-                           aspect.orb ? `${Number(aspect.orb).toFixed(2)}°` : 'N/A'}
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={4} className="py-3 px-4 text-white/60 text-center">
-                        No aspects found
+                <tbody className="divide-y divide-gray-100">
+                  {data.houses_data.map((house: any, index: number) => (
+                    <motion.tr
+                      key={house.house_number}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: 0.4 + index * 0.05 }}
+                      className="hover:bg-gray-50 transition-colors"
+                    >
+                      <td className="py-4 px-4 sm:px-6 text-gray-900 font-medium">
+                        {house.house_number}
                       </td>
+                      <td className="py-4 px-4 sm:px-6 text-gray-600">{house.sign}</td>
+                      <td className="py-4 px-4 sm:px-6 text-gray-600 font-mono text-sm">
+                        {formatDegree(house.cusp_degree)}
+                      </td>
+                      <td className="py-4 px-4 sm:px-6 text-gray-600">{house.lord}</td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </motion.div>
+
+        {/* Vimshottari Dasa Table */}
+        {data.vimshottari_dasa_table && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <Card className="mb-8">
+              <h2 className="text-2xl text-gray-900 mb-2">
+                Vimshottari Dasa Periods
+              </h2>
+              <p className="text-gray-600 mb-6 text-sm">
+                Planetary periods showing when each planet's influence is most active in your life
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="border-b-2 border-gray-200 bg-gray-50">
+                    <tr>
+                      <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                        Planet
+                      </th>
+                      <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                        Start Date
+                      </th>
+                      <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                        End Date
+                      </th>
+                      <th className="text-left py-4 px-4 sm:px-6 text-sm font-medium text-gray-900 uppercase tracking-wider">
+                        Duration (Years)
+                      </th>
                     </tr>
+<<<<<<< HEAD
                   )}
                 </tbody>
               </table>
@@ -383,6 +344,31 @@ export const ChartResults = () => {
               </table>
             </div>
           </Card>
+=======
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {data.vimshottari_dasa_table.map((dasa: any, index: number) => (
+                      <motion.tr
+                        key={`${dasa.planet}-${index}`}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.5 + index * 0.05 }}
+                        className="hover:bg-gray-50 transition-colors"
+                      >
+                        <td className="py-4 px-4 sm:px-6 text-gray-900 font-medium">
+                          {dasa.planet}
+                        </td>
+                        <td className="py-4 px-4 sm:px-6 text-gray-600">{dasa.start_date}</td>
+                        <td className="py-4 px-4 sm:px-6 text-gray-600">{dasa.end_date}</td>
+                        <td className="py-4 px-4 sm:px-6 text-gray-600">{dasa.duration_years}</td>
+                      </motion.tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+          </motion.div>
+>>>>>>> 16976e908eb28ab3bdca724c24c827e20b6db851
         )}
       </div>
     </div>

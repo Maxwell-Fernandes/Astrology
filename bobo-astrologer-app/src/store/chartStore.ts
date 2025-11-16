@@ -40,7 +40,7 @@ export const useChartStore = create<ChartState>()(
           set({
             currentChart: chartData,
             chartHistory: [
-              { id: chartData.id, type: 'natal', input, createdAt: chartData.createdAt },
+              { id: chartData.id, type: 'natal' as const, input, createdAt: chartData.createdAt },
               ...get().chartHistory,
             ].slice(0, 50),
             isLoading: false,
@@ -68,7 +68,7 @@ export const useChartStore = create<ChartState>()(
           set({
             currentChart: chartData,
             chartHistory: [
-              { id: chartData.id, type: 'horary', input, createdAt: chartData.createdAt },
+              { id: chartData.id, type: 'horary' as const, input, createdAt: chartData.createdAt },
               ...get().chartHistory,
             ].slice(0, 50),
             isLoading: false,

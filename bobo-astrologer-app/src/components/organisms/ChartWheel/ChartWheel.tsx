@@ -21,71 +21,9 @@ export const ChartWheel = ({ planets, houses }: ChartWheelProps) => {
     planetsByHouse[planet.house].push(planet);
   });
 
-  // Group planets by sign for South Indian chart
-  const planetsBySign: Record<string, Planet[]> = {};
-  planets.forEach((planet) => {
-    if (!planetsBySign[planet.sign]) {
-      planetsBySign[planet.sign] = [];
-    }
-    planetsBySign[planet.sign].push(planet);
-  });
-
-  // North Indian style chart layout (diamond shaped, rotated 45 degrees)
-  // Layout in 4x4 grid forming a diamond
-  const northIndianPositions = [
-    { house: 12, row: 0, col: 1, span: 1 },  // Top left
-    { house: 1, row: 0, col: 2, span: 1 },   // Top right
-    { house: 11, row: 1, col: 0, span: 1 },  // Left top
-    { house: 2, row: 1, col: 3, span: 1 },   // Right top
-    { house: 10, row: 2, col: 0, span: 1 },  // Left bottom
-    { house: 3, row: 2, col: 3, span: 1 },   // Right bottom
-    { house: 9, row: 3, col: 1, span: 1 },   // Bottom left
-    { house: 4, row: 3, col: 2, span: 1 },   // Bottom right
-    { house: 8, row: 1, col: 1, span: 1 },   // Center top-left
-    { house: 5, row: 1, col: 2, span: 1 },   // Center top-right
-    { house: 7, row: 2, col: 1, span: 1 },   // Center bottom-left
-    { house: 6, row: 2, col: 2, span: 1 },   // Center bottom-right
-  ];
-
-  // South Indian style chart layout (signs fixed in position)
-  // Signs are fixed: Aries top-left, going clockwise
-  const southIndianPositions = [
-    { sign: 'Aries', row: 0, col: 1 },
-    { sign: 'Taurus', row: 0, col: 2 },
-    { sign: 'Gemini', row: 0, col: 3 },
-    { sign: 'Cancer', row: 1, col: 3 },
-    { sign: 'Leo', row: 2, col: 3 },
-    { sign: 'Virgo', row: 3, col: 3 },
-    { sign: 'Libra', row: 3, col: 2 },
-    { sign: 'Scorpio', row: 3, col: 1 },
-    { sign: 'Sagittarius', row: 3, col: 0 },
-    { sign: 'Capricorn', row: 2, col: 0 },
-    { sign: 'Aquarius', row: 1, col: 0 },
-    { sign: 'Pisces', row: 0, col: 0 },
-  ];
-
   const getHouseSign = (houseNum: number) => {
     const house = houses.find((h) => h.house_number === houseNum);
     return house?.sign || '';
-  };
-
-  const getHouseNumberForSign = (signName: string) => {
-    const house = houses.find((h) => h.sign === signName);
-    return house?.house_number || null;
-  };
-
-  const getPlanetColor = (planetName: string) => {
-    switch (planetName) {
-      case 'Sun': return 'text-orange-400';
-      case 'Moon': return 'text-blue-300';
-      case 'Mars': return 'text-red-400';
-      case 'Mercury': return 'text-green-400';
-      case 'Jupiter': return 'text-yellow-400';
-      case 'Venus': return 'text-pink-400';
-      case 'Saturn': return 'text-gray-400';
-      case 'Asc': return 'text-accent-purple';
-      default: return 'text-white';
-    }
   };
 
   const getPlanetAbbreviation = (planetName: string) => {

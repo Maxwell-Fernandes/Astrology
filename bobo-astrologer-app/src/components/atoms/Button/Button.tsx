@@ -1,4 +1,5 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -21,38 +22,42 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   return (
-    <button
+    <motion.button
+      whileHover={!disabled && !isLoading ? { scale: 1.05 } : undefined}
+      whileTap={!disabled && !isLoading ? { scale: 0.95 } : undefined}
       className={clsx(
         'inline-flex items-center justify-center gap-2',
-        'font-semibold uppercase tracking-wide transition-all duration-200',
-        'focus:outline-none focus:ring-2 focus:ring-accent-purple focus:ring-offset-2 focus:ring-offset-primary-dark',
+        'font-medium transition-all',
+        'focus:outline-none focus:ring-2 focus:ring-[#FFD700]/20 focus:ring-offset-2',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         {
-          // Variants
-          'bg-accent-purple hover:bg-purple-700 text-white shadow-md hover:shadow-lg':
+          // Primary Button - Golden Gradient
+          'bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-white shadow-md hover:shadow-lg':
             variant === 'primary' && !disabled,
-          'bg-transparent border-2 border-white/40 hover:border-white hover:bg-white/10 text-white':
-            variant === 'secondary' && !disabled,
-          'bg-transparent hover:bg-white/5 text-white': variant === 'ghost' && !disabled,
 
-          // Sizes
-          'px-4 py-2 text-sm rounded-md': size === 'sm',
-          'px-6 py-3 text-base rounded-lg': size === 'md',
-          'px-8 py-4 text-lg rounded-lg': size === 'lg',
+          // Secondary Button - White with Golden Text
+          'bg-white text-[#FFD700] border-2 border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md':
+            variant === 'secondary' && !disabled,
+
+          // Ghost Button - Transparent
+          'bg-transparent hover:bg-gray-100 text-gray-700 hover:text-gray-900':
+            variant === 'ghost' && !disabled,
+
+          // Sizes with full border radius
+          'px-4 py-2 text-sm rounded-full': size === 'sm',
+          'px-6 sm:px-8 py-3 sm:py-4 text-base rounded-full': size === 'md',
+          'px-8 sm:px-10 py-4 sm:py-5 text-lg rounded-full': size === 'lg',
 
           // Full width
           'w-full': fullWidth,
-
-          // Hover effect
-          'hover:-translate-y-0.5 active:translate-y-0': !disabled && !isLoading,
         },
         className
       )}
       disabled={disabled || isLoading}
-      {...props}
+      {...(props as any)}
     >
       {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
       {children}
-    </button>
+    </motion.button>
   );
 };

@@ -1,36 +1,16 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
-interface ChartData {
-  type: 'natal' | 'horary';
-  input: {
-    name?: string;
-    place_of_birth?: string;
-    year: number;
-    month: number;
-    day: number;
-    hour: number;
-    minute: number;
-    second: number;
-    utc: string;
-    latitude: number;
-    longitude: number;
-    ayanamsa: string;
-    house_system: string;
-    horary_number?: number;
-  };
-  data: any;
-}
+import type { ChartData } from '@/types/chart';
 
 // Style Guide Colors (converted to RGB)
 const COLORS = {
-  primaryDark: [10, 10, 10],
-  textPrimary: [255, 255, 255],
-  textSecondary: [184, 184, 184],
-  accentGold: [212, 175, 55],
-  accentPurple: [139, 92, 246],
-  surfaceElevated: [26, 26, 26],
-  borderSubtle: [51, 51, 51],
+  primaryDark: [10, 10, 10] as [number, number, number],
+  textPrimary: [255, 255, 255] as [number, number, number],
+  textSecondary: [184, 184, 184] as [number, number, number],
+  accentGold: [212, 175, 55] as [number, number, number],
+  accentPurple: [139, 92, 246] as [number, number, number],
+  surfaceElevated: [26, 26, 26] as [number, number, number],
+  borderSubtle: [51, 51, 51] as [number, number, number],
 };
 
 export const exportChartToPDF = async (chartData: ChartData) => {
