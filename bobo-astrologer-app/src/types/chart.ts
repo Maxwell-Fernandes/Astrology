@@ -4,7 +4,14 @@ export interface ChartData {
   type: 'natal' | 'horary';
   data: any;
   input?: any;
-  createdAt: Date;
+  createdAt: string | Date;
+}
+
+export interface ChartHistoryItem {
+  id: string;
+  type: 'natal' | 'horary';
+  input?: any;
+  createdAt: string | Date;
 }
 
 export interface ChartState {

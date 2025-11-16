@@ -21,10 +21,8 @@ export const Button = ({
   disabled,
   ...props
 }: ButtonProps) => {
-  const MotionButton = motion.button;
-
   return (
-    <MotionButton
+    <motion.button
       whileHover={!disabled && !isLoading ? { scale: 1.05 } : undefined}
       whileTap={!disabled && !isLoading ? { scale: 0.95 } : undefined}
       className={clsx(
@@ -56,10 +54,10 @@ export const Button = ({
         className
       )}
       disabled={disabled || isLoading}
-      {...props}
+      {...(props as any)}
     >
       {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
       {children}
-    </MotionButton>
+    </motion.button>
   );
 };

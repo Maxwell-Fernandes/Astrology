@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { MapPin, Loader2 } from 'lucide-react';
-import { Input, Label } from '@/components/atoms';
+import { Input } from '@/components/atoms';
 import clsx from 'clsx';
 
 interface LocationSearchProps {
@@ -9,13 +9,13 @@ interface LocationSearchProps {
   required?: boolean;
 }
 
-export const LocationSearch = ({ onLocationSelect, error, required }: LocationSearchProps) => {
+export const LocationSearch = ({ onLocationSelect, error }: LocationSearchProps) => {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState('');
-  const debounceTimeout = useRef<NodeJS.Timeout>();
+  const debounceTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     if (query.length < 3) {
