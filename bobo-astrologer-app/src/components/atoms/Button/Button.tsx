@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { Loader2 } from 'lucide-react';
 import clsx from 'clsx';
@@ -23,8 +23,8 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <motion.button
-      whileHover={!disabled && !isLoading ? { scale: 1.05 } : {}}
-      whileTap={!disabled && !isLoading ? { scale: 0.95 } : {}}
+      whileHover={!disabled && !isLoading ? { scale: 1.05 } : undefined}
+      whileTap={!disabled && !isLoading ? { scale: 0.95 } : undefined}
       className={clsx(
         'inline-flex items-center justify-center gap-2',
         'font-medium transition-all',
@@ -54,7 +54,7 @@ export const Button = ({
         className
       )}
       disabled={disabled || isLoading}
-      {...props}
+      {...(props as any)}
     >
       {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
       {children}

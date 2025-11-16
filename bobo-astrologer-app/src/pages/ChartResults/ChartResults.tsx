@@ -156,7 +156,7 @@ export const ChartResults = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {data.planets_data.map((planet, index) => (
+                  {data.planets_data.map((planet: any, index: number) => (
                     <motion.tr
                       key={planet.name}
                       initial={{ opacity: 0, y: 10 }}
@@ -223,7 +223,7 @@ export const ChartResults = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {data.houses_data.map((house, index) => (
+                  {data.houses_data.map((house: any, index: number) => (
                     <motion.tr
                       key={house.house_number}
                       initial={{ opacity: 0, y: 10 }}
@@ -280,7 +280,7 @@ export const ChartResults = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    {data.vimshottari_dasa_table.map((dasa, index) => (
+                    {data.vimshottari_dasa_table.map((dasa: any, index: number) => (
                       <motion.tr
                         key={`${dasa.planet}-${index}`}
                         initial={{ opacity: 0, y: 10 }}
