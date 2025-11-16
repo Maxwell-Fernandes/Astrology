@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, MapPin, Settings, User } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { Button, Select, Label } from '@/components/atoms';
@@ -53,12 +54,15 @@ export const NatalChart = () => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <div className="stars" />
-
-      <div className="relative z-10 container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8 sm:py-12">
         {/* Header */}
-        <div className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8 sm:mb-12"
+        >
           <Button
             variant="ghost"
             size="sm"
@@ -68,22 +72,30 @@ export const NatalChart = () => {
             <ArrowLeft className="w-4 h-4" />
             Back to Home
           </Button>
-          <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white mb-3">
+          <h1 className="text-3xl sm:text-4xl text-gray-900 mb-3">
             Generate Natal Chart
           </h1>
-          <p className="text-lg text-white/60">
+          <p className="text-lg text-gray-600">
             Enter your birth details to generate a complete Vedic astrology chart
           </p>
-        </div>
+        </motion.div>
 
         {/* Form */}
         <div className="max-w-3xl mx-auto">
-          <form onSubmit={handleSubmit(onSubmit)} className="glass-strong p-8 rounded-2xl space-y-8">
+          <motion.form
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            onSubmit={handleSubmit(onSubmit)}
+            className="bg-white rounded-[20px] p-6 sm:p-8 border border-gray-200 shadow-sm space-y-8"
+          >
             {/* Personal Information Section */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <User className="w-5 h-5 text-accent-purple" />
-                <h3 className="text-xl font-semibold text-white">Personal Information</h3>
+                <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-red-400 rounded-full flex items-center justify-center">
+                  <User className="w-4 h-4 text-white" />
+                </div>
+                <h3 className="text-gray-900">Personal Information</h3>
               </div>
               <div className="grid grid-cols-1 gap-4">
                 <FormField
@@ -101,8 +113,10 @@ export const NatalChart = () => {
             {/* Date Section */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Calendar className="w-5 h-5 text-accent-purple" />
-                <h3 className="text-xl font-semibold text-white">Birth Date</h3>
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full flex items-center justify-center">
+                  <Calendar className="w-4 h-4 text-white" />
+                </div>
+                <h3 className="text-gray-900">Birth Date</h3>
               </div>
               <div className="grid grid-cols-3 gap-4">
                 <FormField
@@ -138,8 +152,10 @@ export const NatalChart = () => {
             {/* Time Section */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Clock className="w-5 h-5 text-accent-blue" />
-                <h3 className="text-xl font-semibold text-white">Birth Time</h3>
+                <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-violet-400 rounded-full flex items-center justify-center">
+                  <Clock className="w-4 h-4 text-white" />
+                </div>
+                <h3 className="text-gray-900">Birth Time</h3>
               </div>
               <div className="grid grid-cols-3 gap-4 mb-4">
                 <FormField
@@ -182,7 +198,7 @@ export const NatalChart = () => {
                   ))}
                 </Select>
                 {errors.utc && (
-                  <p className="text-sm text-red-400 animate-fade-in">{errors.utc.message}</p>
+                  <p className="text-sm text-red-600 animate-fade-in">{errors.utc.message}</p>
                 )}
               </div>
             </div>
@@ -190,8 +206,10 @@ export const NatalChart = () => {
             {/* Location Section */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <MapPin className="w-5 h-5 text-accent-gold" />
-                <h3 className="text-xl font-semibold text-white">Place of Birth</h3>
+                <div className="w-8 h-8 bg-gradient-to-br from-[#FFD700] to-[#FFA500] rounded-full flex items-center justify-center">
+                  <MapPin className="w-4 h-4 text-white" />
+                </div>
+                <h3 className="text-gray-900">Place of Birth</h3>
               </div>
               <LocationSearch
                 onLocationSelect={handleLocationSelect}
@@ -203,10 +221,12 @@ export const NatalChart = () => {
             {/* Settings Section */}
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <Settings className="w-5 h-5 text-white/70" />
-                <h3 className="text-xl font-semibold text-white">Calculation Settings</h3>
+                <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-400 rounded-full flex items-center justify-center">
+                  <Settings className="w-4 h-4 text-white" />
+                </div>
+                <h3 className="text-gray-900">Calculation Settings</h3>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FormField
                   label="Ayanamsa"
                   name="ayanamsa"
@@ -254,11 +274,15 @@ export const NatalChart = () => {
 
             {/* Error Display */}
             {error && (
-              <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 animate-fade-in">
-                <p className="text-red-400 text-sm">{error}</p>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-50 border border-red-200 rounded-[20px] p-4"
+              >
+                <p className="text-red-600 text-sm">{error}</p>
+              </motion.div>
             )}
-          </form>
+          </motion.form>
         </div>
       </div>
     </div>
