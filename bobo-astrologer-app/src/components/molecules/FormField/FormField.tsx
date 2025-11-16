@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { Input, Label } from '@/components/atoms';
 
 export interface FormFieldProps {
@@ -38,7 +38,7 @@ export const FormField = ({
         />
       )}
       {error && (
-        <p className="text-sm text-red-400 animate-fade-in">{error}</p>
+        <p className="text-sm text-red-600 animate-fade-in">{error}</p>
       )}
     </div>
   );

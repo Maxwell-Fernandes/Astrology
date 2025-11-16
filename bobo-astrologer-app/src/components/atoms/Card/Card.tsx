@@ -1,4 +1,4 @@
-import { HTMLAttributes, ReactNode } from 'react';
+import { type HTMLAttributes, type ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
 
